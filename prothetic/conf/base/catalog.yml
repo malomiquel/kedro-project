@@ -1,0 +1,7 @@
+raw_daily_data:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/tonal_exams.csv
+
+shaped_datas:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/transform_data.csv
