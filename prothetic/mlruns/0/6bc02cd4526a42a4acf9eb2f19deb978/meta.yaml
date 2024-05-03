@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/malomiquel/Desktop/Cours/Industralisation%20de%20mode%CC%80le%20ML/TP/kedro-project/prothetic/mlruns/0/6bc02cd4526a42a4acf9eb2f19deb978/artifacts
+end_time: 1714733368893
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6bc02cd4526a42a4acf9eb2f19deb978
+run_name: rebellious-chimp-320
+run_uuid: 6bc02cd4526a42a4acf9eb2f19deb978
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714733360428
+status: 3
+tags: []
+user_id: malomiquel

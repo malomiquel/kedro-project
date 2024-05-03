@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/malomiquel/Desktop/Cours/Industralisation%20de%20mode%CC%80le%20ML/TP/kedro-project/prothetic/mlruns/0/5dcdae7b86354f88b7e0b69cc2de5915/artifacts
+end_time: 1714733369936
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5dcdae7b86354f88b7e0b69cc2de5915
+run_name: funny-yak-957
+run_uuid: 5dcdae7b86354f88b7e0b69cc2de5915
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1714733369151
+status: 3
+tags: []
+user_id: malomiquel

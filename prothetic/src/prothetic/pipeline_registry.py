@@ -6,6 +6,7 @@ from kedro.pipeline import Pipeline
 from prothetic.pipelines import (
     collect_transformation,
     model_training,
+    model_validation
 )
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -15,9 +16,11 @@ def register_pipelines() -> Dict[str, Pipeline]:
     """
     my_pipeline = collect_transformation.create_pipeline()
     my_pipeline_2 = model_training.create_pipeline()
+    my_pipeline_3 = model_validation.create_pipeline()
     # Return statement indicates the default sequence of modular pipeline
     return {
         "collect_transformation": my_pipeline ,
         "model_training": my_pipeline_2 ,
-        "__default__": my_pipeline + my_pipeline_2
+        "model_validation": my_pipeline_3 ,
+        "__default__": my_pipeline + my_pipeline_2 + my_pipeline_3
     }
