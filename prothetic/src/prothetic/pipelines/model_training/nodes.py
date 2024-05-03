@@ -1,10 +1,6 @@
-import tensorflow as tf
-from tensorflow import keras
-from keras import layers, regularizers
-
+from keras import layers, regularizers, optimizers, metrics, Model
 
 def create_model(input_data, units=128, activation='relu', l2_value=0.01, dropout_rate=None, learning_rate=1e-3):
-
     
     input_shape = input_data.shape
 
@@ -31,8 +27,8 @@ def create_model(input_data, units=128, activation='relu', l2_value=0.01, dropou
     x = layers.Dense(input_shape[0], activation='softmax')(x)
 
     # Création du modèle
-    model = tf.keras.Model(inputs=inputs, outputs=x)
-    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
-              loss="mse", metrics=[tf.keras.metrics.CategoricalAccuracy()])
+    model = Model(inputs=inputs, outputs=x)
+    model.compile(optimizer=optimizers.Adam(learning_rate=learning_rate),
+              loss="mse", metrics=[metrics.CategoricalAccuracy()])
     
     return model

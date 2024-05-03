@@ -18,6 +18,6 @@ def register_pipelines() -> Dict[str, Pipeline]:
     # Return statement indicates the default sequence of modular pipeline
     return {
         "collect_transformation": my_pipeline ,
-        "mdoel_deployment": my_pipeline_2 ,
+        "model_training": my_pipeline_2 ,
         "__default__": my_pipeline + my_pipeline_2
     }

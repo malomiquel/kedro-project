@@ -1,1 +1,1 @@
-{"raw_daily_data": {"rows": 10000, "columns": 14, "file_size": 407170}, "shaped_datas": {"rows": 10000, "columns": 14, "file_size": 407170}}
+{"raw_daily_data": {"rows": 10000, "columns": 14, "file_size": 407170}, "shaped_datas": {"rows": 10000, "columns": 14, "file_size": 407170}, "x_train": {"rows": 8000, "columns": 7, "file_size": 169873}, "y_train": {"rows": 2000, "columns": 7, "file_size": 42429}, "x_test": {"rows": 8000, "columns": 7, "file_size": 156204}, "y_test": {"rows": 2000, "columns": 7, "file_size": 38931}}

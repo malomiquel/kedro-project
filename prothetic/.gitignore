@@ -149,7 +149,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-# Useless files to push
-session_store.db
-stats.json
