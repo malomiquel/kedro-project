@@ -2,7 +2,7 @@ from keras import layers, regularizers, optimizers, metrics, Model
 import pandas as pd
 
 
-def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropout_rate=0.2, learning_rate=0.02):
+def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropout_rate=None, learning_rate=1e-3):
 
     inputs = layers.Input(shape=(input_shape[1], 1,))
 
@@ -32,7 +32,7 @@ def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropo
 
 
 def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_test: pd.DataFrame, y_test: pd.DataFrame):
-    model = create_model(X_train.shape)
+    model = create_model(X_train.shape, dropout_rate=0.2)
 
     model.fit(X_train, y_train, epochs=10, validation_data=(X_test, y_test))
 
