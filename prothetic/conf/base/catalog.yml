@@ -22,6 +22,6 @@ y_test:
   type: pandas.CSVDataset
   filepath: data/05_model_input/test_data_Y.csv
 
-model:
+model_trained:
   type: pickle.PickleDataset
-  filepath: data/06_models/model.pkl
+  filepath: data/06_models/model_trained.pkl
