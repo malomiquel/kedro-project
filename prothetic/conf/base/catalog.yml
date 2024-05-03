@@ -5,3 +5,19 @@ raw_daily_data:
 shaped_datas:
   type: pandas.CSVDataset
   filepath: data/03_primary/transform_data.csv
+
+x_train:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/training_data_X.csv
+
+y_train:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/training_data_Y.csv
+
+x_test:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/test_data_X.csv
+
+y_test:
+  type: pandas.CSVDataset
+  filepath: data/05_model_input/test_data_Y.csv

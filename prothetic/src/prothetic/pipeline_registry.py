@@ -4,7 +4,7 @@ from typing import Dict
 from kedro.pipeline import Pipeline
 
 from prothetic.pipelines import (
-    collect_transformation
+    collect_transformation,
 )
 
 def register_pipelines() -> Dict[str, Pipeline]:
