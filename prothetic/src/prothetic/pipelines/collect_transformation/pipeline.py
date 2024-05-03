@@ -18,7 +18,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=split_dataset,
             inputs="shaped_datas",
-            outputs=["x_train","y_train","x_test","y_test"],
+            outputs=["x_train", "x_test", "y_train", "y_test"],
             name="node_split_transform_daily_data"
         )
     ])

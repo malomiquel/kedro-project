@@ -22,6 +22,6 @@ def split_dataset(input_data: pd.DataFrame):
     X = input_data.filter(regex='^before_')
     y = input_data.filter(regex='^after_')
 
-    X_train, y_train, X_test, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    return X_train, y_train, X_test, y_test
+    return X_train, X_test, y_train, y_test
