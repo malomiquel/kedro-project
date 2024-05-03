@@ -1,0 +1,8 @@
+{
+  "categorical_accuracy": 0.4672499895095825,
+  "loss": 2681.375732421875,
+  "val_categorical_accuracy": 0.4699999988079071,
+  "val_loss": 2633.947021484375,
+  "epoch": 8,
+  "global_step": 2250
+}
