@@ -13,6 +13,7 @@ def transform_data(input_data: pd.DataFrame) -> pd.DataFrame:
     data_transformed = input_data.apply(pd.to_numeric, errors='coerce')
 
     data_transformed.dropna(inplace=True)
+    data_transformed = data_transformed.drop(columns=['before_exam_125_Hz', 'before_exam_250_Hz', 'before_exam_500_Hz', 'before_exam_8000_Hz', 'after_exam_125_Hz', 'after_exam_250_Hz', 'after_exam_500_Hz', 'after_exam_8000_Hz'])
 
     return data_transformed
 
