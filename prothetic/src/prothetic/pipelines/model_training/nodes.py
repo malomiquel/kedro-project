@@ -1,4 +1,4 @@
-from keras import layers, regularizers, optimizers, metrics, Model
+from keras import layers, regularizers, optimizers, metrics, Model, callbacks
 import pandas as pd
 import mlflow
 
@@ -8,9 +8,9 @@ def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropo
 
     inputs = layers.Input(shape=(input_shape[1], 1))
 
-    x = layers.Conv1D(filters=32, kernel_size=3, activation=activation, padding='same')(inputs)
+    x = layers.Conv1D(filters=64, kernel_size=3, activation=activation, padding='same')(inputs)
     x = layers.MaxPooling1D(pool_size=2, padding='same')(x)
-    x = layers.Conv1D(filters=64, kernel_size=3, activation=activation, padding='same')(x)
+    x = layers.Conv1D(filters=128, kernel_size=3, activation=activation, padding='same')(x)
     x = layers.MaxPooling1D(pool_size=2, padding='same')(x)
 
     x = layers.Flatten()(x)
@@ -25,8 +25,8 @@ def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropo
     model = Model(inputs=inputs, outputs=x)
 
     model.compile(optimizer=optimizers.Adam(learning_rate=learning_rate),
-                  loss="categorical_crossentropy", 
-                  metrics=[metrics.CategoricalAccuracy(), metrics.MeanAbsoluteError(), metrics.MeanSquaredError()])
+                  loss="mean_absolute_error",
+                  metrics=[metrics.MeanAbsoluteError(), metrics.MeanSquaredError()])
 
     return model
 
@@ -34,6 +34,8 @@ def create_model(input_shape, units=128, activation='relu', l2_value=0.01, dropo
 def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_test: pd.DataFrame, y_test: pd.DataFrame):
     model = create_model(X_train.shape, dropout_rate=0.5)
 
-    model.fit(X_train, y_train, epochs=50, validation_data=(X_test, y_test))
+    early_stopping = callbacks.EarlyStopping(monitor='val_mean_absolute_error', patience=5, restore_best_weights=True)
+
+    model.fit(X_train, y_train, epochs=100, validation_data=(X_test, y_test), callbacks=[early_stopping])
 
     return model
