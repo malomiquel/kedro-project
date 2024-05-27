@@ -51,6 +51,6 @@ def train_model(X_train: pd.DataFrame, y_train: pd.DataFrame, X_test: pd.DataFra
 
     early_stopping = callbacks.EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
-    history = model.fit(X_train_reshaped, y_train_reshaped, epochs=100, validation_data=(X_test_reshaped, y_test_reshaped), callbacks=[early_stopping])
+    history = model.fit(X_train_reshaped, y_train_reshaped, epochs=10, validation_data=(X_test_reshaped, y_test_reshaped), callbacks=[early_stopping])
 
     return model  # Return only the model
