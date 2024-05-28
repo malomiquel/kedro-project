@@ -29,3 +29,15 @@ model_trained:
 model_final:
   type: pickle.PickleDataset
   filepath: data/06_models/model_final.pkl
+
+raw_data_to_predict:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/raw_data_to_predict.csv
+
+data_to_predict:
+  type: pandas.CSVDataset
+  filepath: data/07_model_input/data_to_predict.csv
+
+data_predicted:
+  type: pandas.CSVDataset
+  filepath: data/07_model_output/predictions.csv
