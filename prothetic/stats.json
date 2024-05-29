@@ -1,1 +1,1 @@
-{"raw_data_to_predict": {"rows": 10, "columns": 7, "file_size": 351}, "data_to_predict": {"rows": 10, "columns": 3, "file_size": 152}}
+{"raw_daily_data": {"rows": 100050, "columns": 14, "file_size": 6267440}, "shaped_datas": {"rows": 100000, "columns": 6, "file_size": 2355198}, "x_train": {"rows": 80000, "columns": 3, "file_size": 1208841}, "x_test": {"rows": 20000, "columns": 3, "file_size": 302468}, "y_train": {"rows": 80000, "columns": 3, "file_size": 674819}, "y_test": {"rows": 20000, "columns": 3, "file_size": 169187}}

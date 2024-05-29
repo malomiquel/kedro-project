@@ -46,4 +46,4 @@ def predict_model(input_data: pd.DataFrame, model: Model) -> pd.DataFrame:
 
     df = df.round().astype(int)
 
-    return data_predicted
+    return df

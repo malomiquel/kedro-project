@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kedro Flask API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 100%;
+            width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 10px 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Kedro Flask API</h1>
+        <form id="predictForm" action="/predict" method="post" enctype="multipart/form-data">
+            <label for="predictFile">Upload sample data (CSV):</label>
+            <input type="file" id="predictFile" name="file" accept=".csv" required>
+            <button type="submit" class="button">Get Prediction</button>
+        </form>
+        <br>
+        <a href="/aggregate" class="button">Aggregate Data</a>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+
+        if (error || success) {
+            Swal.fire({
+                icon: success ? "success" :  "error",
+                showConfirmButton: false,
+                title: success ? success : error,
+                toast: true,
+                position: 'top-end',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                    toast.onclick = () => {
+                        Swal.close();
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
