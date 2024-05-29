@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,20 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
+
         .container {
+            max-width: 100%;
+            width: 600px;
             margin: auto;
             padding: 20px;
             border-radius: 5px;
         }
+
         .button {
             display: inline-block;
-            text-decoration: none;
             margin: 10px 0;
             padding: 10px 20px;
             font-size: 16px;
@@ -26,16 +32,20 @@
             border: none;
             border-radius: 5px;
             text-align: center;
+            text-decoration: none;
         }
+
         .button:hover {
             background-color: #0056b3;
         }
+
         input[type="file"] {
             display: block;
             margin: 10px 0;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Aggregate Data</h1>
@@ -47,4 +57,5 @@
         <a href="/" class="button">Back</a>
     </div>
 </body>
+
 </html>

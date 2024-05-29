@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session as flask_session, flash
+from flask import Flask, request, render_template, redirect, url_for, session as flask_session, send_file
 import pandas as pd
 from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
@@ -20,14 +20,14 @@ def home():
    # Récupère les messages flash
     error = flask_session.pop('error', None)
     success = flask_session.pop('success', None)
-    
+
     # Passe uniquement les messages non nulles
     messages = {}
     if error:
         messages['error'] = error
     if success:
         messages['success'] = success
-        
+
     return render_template('index.html', messages=messages)
 
 
@@ -117,6 +117,36 @@ def aggregate():
             return redirect(url_for('home'))
     # Affiche la page pour télécharger un fichier pour l'agrégation
     return render_template('aggregate.html')
+
+
+@app.route('/download', methods=['GET'])
+def download():
+    """
+    Route pour télécharger les prédictions au format CSV.
+    """
+    try:
+        # Chemin du fichier CSV contenant les prédictions
+        transformed_data = pd.read_csv(
+            "data/07_model_input/data_to_predict.csv")
+        predictions_csv = "data/07_model_output/predictions.csv"
+
+        # Vérifie si le fichier existe
+        if not os.path.exists(predictions_csv):
+            flask_session['error'] = "Le fichier des prédictions n'existe pas."
+            return redirect(url_for('home'))
+
+        data_predicted = pd.concat(
+            [transformed_data, pd.read_csv(predictions_csv)], axis=1)
+
+        # Sauvegarde les données concaténées dans un fichier temporaire
+        temp_file = "data/07_model_output/combined_predictions.csv"
+        data_predicted.to_csv(temp_file, index=False)
+
+        # Envoie le fichier CSV en pièce jointe
+        return send_file(temp_file, as_attachment=True)
+    except Exception as e:
+        flask_session['error'] = str(e)
+        return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
