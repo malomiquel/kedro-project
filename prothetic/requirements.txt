@@ -16,3 +16,4 @@ pyspark
 scikit-learn
 tensorflow
 mlflow
+flask
