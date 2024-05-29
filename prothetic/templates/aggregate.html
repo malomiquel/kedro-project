@@ -10,14 +10,13 @@
             margin: 20px;
         }
         .container {
-            max-width: 600px;
             margin: auto;
             padding: 20px;
-            border: 1px solid #ddd;
             border-radius: 5px;
         }
         .button {
             display: inline-block;
+            text-decoration: none;
             margin: 10px 0;
             padding: 10px 20px;
             font-size: 16px;
@@ -42,9 +41,10 @@
         <h1>Aggregate Data</h1>
         <form id="aggregateForm" action="/aggregate" method="post" enctype="multipart/form-data">
             <label for="aggregateFile">Upload "before" and "after" data (CSV):</label>
-            <input type="file" id="aggregateFile" name="file">
+            <input type="file" id="aggregateFile" name="file" accept=".csv" required>
             <button type="submit" class="button">Aggregate</button>
         </form>
+        <a href="/" class="button">Back</a>
     </div>
 </body>
 </html>

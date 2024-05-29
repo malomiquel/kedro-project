@@ -13,7 +13,6 @@ conf/local
 !conf/local/.gitkeep
 
 # ignore everything in the following folders
-data
 logs
 notebooks
 references
@@ -24,6 +23,3 @@ results
 !notebooks/.gitkeep
 !references/.gitkeep
 !results/.gitkeep
-
-# except the tonal_exams.csv file
-!data/01_raw/tonal_exams.csv
