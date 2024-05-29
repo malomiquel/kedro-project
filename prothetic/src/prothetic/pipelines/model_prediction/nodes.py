@@ -23,8 +23,7 @@ def transform_data(input_data: pd.DataFrame) -> pd.DataFrame:
     missing_columns = [
         col for col in prediction_columns if col not in input_data.columns]
     if missing_columns:
-        raise ValueError(f"The following required columns are missing from the input data: {
-                         ', '.join(missing_columns)}")
+        raise ValueError(f"The following required columns are missing from the input data: {', '.join(missing_columns)}")
 
     data_transformed = input_data.apply(pd.to_numeric, errors='coerce')
     data_transformed.dropna(inplace=True)
