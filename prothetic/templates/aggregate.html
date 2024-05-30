@@ -5,57 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aggregate Data</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            max-width: 100%;
-            width: 600px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .button {
-            display: inline-block;
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        input[type="file"] {
-            display: block;
-            margin: 10px 0;
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Aggregate Data</h1>
-        <form id="aggregateForm" action="/aggregate" method="post" enctype="multipart/form-data">
-            <label for="aggregateFile">Upload "before" and "after" data (CSV):</label>
-            <input type="file" id="aggregateFile" name="file" accept=".csv" required>
-            <button type="submit" class="button">Aggregate</button>
+    <div class="container mt-5">
+        <h1 class="text-center">Aggregate Data</h1>
+        <form id="aggregateForm" action="/aggregate" method="post" enctype="multipart/form-data" class="needs-validation mt-4" novalidate>
+            <div class="form-group">
+                <label for="aggregateFile">Upload "before" and "after" data (CSV):</label>
+                <input type="file" class="form-control-file" id="aggregateFile" name="file" accept=".csv" required>
+                <div class="invalid-feedback">Please upload a CSV file.</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Aggregate</button>
         </form>
-        <a href="/" class="button">Back</a>
+        <a href="/" class="btn btn-secondary btn-block mt-2">Back</a>
     </div>
+
+    <script>
+        // Bootstrap form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>
 
 </html>

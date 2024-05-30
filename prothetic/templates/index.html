@@ -5,72 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kedro Flask API</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .container {
-            max-width: 100%;
-            width: 600px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .button {
-            display: inline-block;
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        input[type="file"] {
-            display: block;
-            margin: 10px 0;
-        }
-
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 100%;
-                padding: 15px;
-            }
-
-            .button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body data-flash='{{ messages|tojson|safe }}'>
-    <div class="container">
-        <h1>Kedro Flask API</h1>
-
-        <form id="predictForm" action="/predict" method="post" enctype="multipart/form-data">
-            <label for="predictFile">Upload sample data (CSV):</label>
-            <input type="file" id="predictFile" name="file" accept=".csv" required>
-            <button type="submit" class="button">Get Prediction</button>
+    <div class="container mt-5">
+        <h1 class="text-center">Kedro Flask API</h1>
+        <form id="predictForm" action="/predict" method="post" enctype="multipart/form-data" class="needs-validation mt-4" novalidate>
+            <div class="form-group">
+                <label for="predictFile">Upload sample data (CSV):</label>
+                <input type="file" class="form-control-file" id="predictFile" name="file" accept=".csv" required>
+                <div class="invalid-feedback">Please upload a CSV file.</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Get Prediction</button>
         </form>
         <br>
-        <a href="/aggregate" class="button">Aggregate Data</a>
+        <a href="/aggregate" class="btn btn-secondary btn-block">Aggregate Data</a>
     </div>
 
     <script>

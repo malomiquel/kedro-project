@@ -4,69 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 100%;
-            margin: auto;
-            padding: 20px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        table.data {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: auto;
-        }
-        table.data th, table.data td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        table.data th {
-            background-color: #f2f2f2;
-        }
-        .button {
-            display: inline-block;
-            margin: 10px 0;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        @media screen and (max-width: 600px) {
-            table.data th, table.data td {
-                padding: 4px;
-            }
-            .button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Results</h1>
-        {% for table in tables %}
-            {{ table|safe }}
-        {% endfor %}
+    <div class="container mt-5">
+        <h1 class="text-center">Results</h1>
+        <div class="table-responsive mt-4">
+            {% for table in tables %}
+                {{ table|safe }}
+            {% endfor %}
+        </div>
         <br>
-        <a href="download" class="button">Download</a>
-        <a href="/" class="button">Go Back</a>
+        <a href="download" class="btn btn-primary btn-block">Download</a>
+        <a href="/" class="btn btn-secondary btn-block mt-2">Go Back</a>
     </div>
 </body>
 </html>
