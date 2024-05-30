@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <style>
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
@@ -31,7 +32,7 @@
         .btn-container {
             display: flex;
             gap: 10px;
-            justify-content: center;
+            justify-content: flex-start; /* Align buttons to the left */
         }
 
         .navbar {
@@ -45,6 +46,16 @@
             position: absolute;
             bottom: 0;
             width: 100%;
+        }
+
+        /* Drag and Drop Area Styling */
+        #dragDropArea {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -77,7 +88,16 @@
                 <input type="file" class="form-control-file" id="predictFile" name="file" accept=".csv" required>
                 <div class="invalid-feedback">Please upload a CSV file.</div>
             </div>
-            <div class="btn-container">
+
+            <!-- Drag and Drop Area -->
+            <div id="dragDropArea" class="text-muted">
+                <p>Drag & Drop files here</p>
+            </div>
+
+            <hr>
+            
+            <!-- Align the button with the label -->
+            <div class="form-group btn-container">
                 <button type="submit" class="btn btn-primary btn-custom">Get Prediction</button>
             </div>
         </form>
@@ -95,7 +115,10 @@
         const flashData = document.body.dataset.flash;
         if (flashData) {
             const flash = JSON.parse(flashData);
-            const { error, success } = flash;
+            const {
+                error,
+                success
+            } = flash;
 
             if (error || success) {
                 Swal.fire({
@@ -115,6 +138,31 @@
                     }
                 });
             }
+        }
+
+        // Add drag and drop functionality
+        const dragDropArea = document.getElementById('dragDropArea');
+
+        dragDropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dragDropArea.classList.add('active');
+        });
+
+        dragDropArea.addEventListener('dragleave', () => {
+            dragDropArea.classList.remove('active');
+        });
+
+        dragDropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            const files = event.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        // Handle dropped files
+        function handleFiles(files) {
+            const file = files[0];
+            const predictFileInput = document.getElementById('predictFile');
+            predictFileInput.files = files;
         }
     </script>
 </body>
