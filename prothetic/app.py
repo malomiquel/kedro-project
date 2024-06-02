@@ -31,37 +31,62 @@ def home():
     return render_template('index.html', messages=messages)
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     """
     Route pour effectuer des prédictions.
     """
-    try:
-        # Récupère le fichier téléchargé et le lit dans un DataFrame pandas
-        file = request.files['file']
-        raw_data_df = pd.read_csv(file)
+    if request.method == 'POST':
+        try:
+            # Récupère le fichier téléchargé et le lit dans un DataFrame pandas
+            file = request.files['file']
+            raw_data_df = pd.read_csv(file)
 
-        # Sauvegarde les données brutes dans un fichier CSV
-        raw_data_df.to_csv("data/01_raw/raw_data_to_predict.csv", index=False)
+            # Sauvegarde les données brutes dans un fichier CSV
+            raw_data_df.to_csv(
+                "data/01_raw/raw_data_to_predict.csv", index=False)
 
-        # Crée une session Kedro et exécute le pipeline de prédiction
-        with KedroSession.create(project_path=".") as session:
-            session.run(pipeline_name="model_prediction")
+            # Crée une session Kedro et exécute le pipeline de prédiction
+            with KedroSession.create(project_path=".") as session:
+                session.run(pipeline_name="model_prediction")
 
-        # Lit les données transformées et les prédictions à partir des fichiers CSV générés par Kedro
-        transformed_data = pd.read_csv(
-            "data/07_model_input/data_to_predict.csv")
-        data_predicted = pd.read_csv("data/07_model_output/predictions.csv")
+            # Lit les données transformées et les prédictions à partir des fichiers CSV générés par Kedro
+            transformed_data = pd.read_csv(
+                "data/07_model_input/data_to_predict.csv")
+            data_predicted = pd.read_csv(
+                "data/07_model_output/predictions.csv")
 
-        # Concatène les données transformées et les prédictions pour l'affichage
-        data_to_predict = pd.concat([transformed_data, data_predicted], axis=1)
+            # Concatène les données transformées et les prédictions pour l'affichage
+            data_to_predict = pd.concat(
+                [transformed_data, data_predicted], axis=1)
 
-        # Rend la page de résultats avec les données concaténées
-        return render_template('results.html', tables=[data_to_predict.to_html(classes='data')], titles=data_to_predict.columns.values)
-    except Exception as e:
-        # En cas d'erreur, enregistre le message d'erreur dans la session et redirige
-        flask_session['error'] = str(e)
-        return redirect(url_for('home'))
+            # Préparation des données pour Chart.js
+            values = {
+                '1000_Hz': {
+                    'before': data_to_predict['before_exam_1000_Hz'].tolist(),
+                    'after': data_to_predict['after_exam_1000_Hz'].tolist()
+                },
+                '2000_Hz': {
+                    'before': data_to_predict['before_exam_2000_Hz'].tolist(),
+                    'after': data_to_predict['after_exam_2000_Hz'].tolist()
+                },
+                '4000_Hz': {
+                    'before': data_to_predict['before_exam_4000_Hz'].tolist(),
+                    'after': data_to_predict['after_exam_4000_Hz'].tolist()
+                }
+            }
+
+            # Récupère les noms de colonnes pour l'affichage
+            labels = data_to_predict.index.tolist()
+
+            # Rend la page de résultats avec les données concaténées
+            return render_template('results.html', tables=[data_to_predict.to_html(classes='data')], labels=labels, values=values)
+        except Exception as e:
+            # En cas d'erreur, enregistre le message d'erreur dans la session et redirige
+            flask_session['error'] = str(e)
+            return redirect(url_for('home'))
+    # Affiche la page pour télécharger un fichier pour la prédiction
+    return render_template('results.html')
 
 
 @app.route('/aggregate', methods=['GET', 'POST'])
@@ -150,4 +175,4 @@ def download():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=True)

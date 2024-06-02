@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,87 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Kedro Flask API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/aggregate">Aggregate Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container mt-5">
         <h1 class="text-center">Results</h1>
         <div class="table-responsive mt-4">
             {% for table in tables %}
-                {{ table|safe }}
+            {{ table|safe }}
             {% endfor %}
         </div>
         <br>
         <a href="download" class="btn btn-primary btn-block">Download</a>
         <a href="/" class="btn btn-secondary btn-block mt-2">Go Back</a>
     </div>
+    <div class="col center">
+        <div class="col-md-6">
+            <canvas id="chart1000Hz" width="600" height="600"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="chart2000Hz" width="600" height="600"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="chart4000Hz" width="600" height="600"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labelsData = {{ labels| tojson | safe }};
+        const valuesData = {{ values| tojson | safe }};
+
+        const ctx1000Hz = document.getElementById('chart1000Hz').getContext('2d');
+        const ctx2000Hz = document.getElementById('chart2000Hz').getContext('2d');
+        const ctx4000Hz = document.getElementById('chart4000Hz').getContext('2d');
+
+        const createChart = (ctx, label, beforeData, afterData) => {
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labelsData, // Data on X axis
+                    datasets: [
+                        {
+                            label: `Before Exam - ${label}`,
+                            data: beforeData,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: `After Exam - ${label}`,
+                            data: afterData,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                }
+            });
+        };
+
+        createChart(ctx1000Hz, '1000 Hz', valuesData['1000_Hz']['before'], valuesData['1000_Hz']['after']);
+        createChart(ctx2000Hz, '2000 Hz', valuesData['2000_Hz']['before'], valuesData['2000_Hz']['after']);
+        createChart(ctx4000Hz, '4000 Hz', valuesData['4000_Hz']['before'], valuesData['4000_Hz']['after']);
+    </script>
 </body>
+
 </html>
